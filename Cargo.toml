@@ -1,0 +1,29 @@
+[package]
+name = "local-text-generation"
+version = "0.1.0"
+edition = "2024"
+authors = ["Partii Games"]
+repository = "https://github.com/PartiiGames/local-text-generation"
+license = "MIT OR Apache-2.0"
+# partii-backend flips this and publishes (tokens stay with them).
+publish = false
+description = "On-device LLM inference in pure Rust on burn: Qwen3 / Qwen2 / Llama transformer decoder from Hugging Face safetensors, KV cache, token streaming, CPU (WebGPU next)."
+readme = "README.md"
+keywords = ["llm", "qwen3", "burn", "transformer", "inference"]
+categories = ["science", "game-development"]
+# Only the library, the example and the gate's Rust source ship; tools/ (farm scripts) stays in the monorepo.
+include = ["src/**/*.rs", "examples/*.rs", "README.md", "LICENSE-MIT", "LICENSE-APACHE", "NOTICE", "Cargo.toml"]
+
+[dependencies]
+# simd + rayon: with default-features = false, burn turns OFF burn-flex defaults (gemm SIMD kernels, threads).
+burn = { version = "=0.22.1", default-features = false, features = ["std", "flex", "simd", "rayon"] }
+safetensors = "0.8"
+half = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# pure Rust: no oniguruma (C) and no esaxx (C++); fancy-regex is the same engine its wasm build uses
+tokenizers = { version = "=0.23.2", default-features = false, features = ["fancy-regex"] }
+
+[[bin]]
+name = "chat-gate"
+path = "src/bin/gate.rs"
