@@ -6,7 +6,6 @@ authors = ["Partii Games"]
 repository = "https://github.com/PartiiGames/local-text-generation"
 license = "MIT OR Apache-2.0"
 # partii-backend flips this and publishes (tokens stay with them).
-publish = false
 description = "On-device LLM inference in pure Rust on burn: Qwen3 / Qwen2 / Llama transformer decoder from Hugging Face safetensors, KV cache, token streaming, CPU (WebGPU next)."
 readme = "README.md"
 keywords = ["llm", "qwen3", "burn", "transformer", "inference"]
